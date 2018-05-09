@@ -1,4 +1,6 @@
-connections.json
+# ignore plt-user project
+PLT-User/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

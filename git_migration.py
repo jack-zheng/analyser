@@ -1,3 +1,4 @@
+import os
 import config
 from git import Repo
 from os import walk
@@ -15,7 +16,7 @@ def main():
 	file_path = []
 	for root, dirs, files in walk(config.case_folder):
 		for file in files:
-			file_path.append(join(root, file))
+			file_path.append(os.path.abspath(join(root,file)))
 
 	# print path for debug
 	print('file path list: %s' %file_path)

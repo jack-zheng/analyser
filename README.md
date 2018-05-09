@@ -9,6 +9,7 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 + ~fetch info from git repo and store to sqlite db~
 + ~merge info of this two table~
 all above almost done in my part time project
++ add file path info into case_info table when process git_migration.py
 
 + flask setup
 + flask API
