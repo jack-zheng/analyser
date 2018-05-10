@@ -49,36 +49,39 @@ def main():
 
 # insert record into db
 def build_sql(record):
-	return "INSERT INTO CASE_INFO ('{}', '{}', '{}', '{}', '{}') VALUES ('{}', '{}', '{}', '{}', '{}')"\
-	.format("FILE_NAME", "AUTHOR", "CREATE_DATE", "LAST_UPDATE_BY", "LAST_UPDATE_TIME",\
-		record.file_name, record.author, record.create_date, record.last_update_by, record.last_update_date)
+	return "INSERT INTO CASE_INFO ('{}', '{}', '{}', '{}', '{}', '{}') VALUES ('{}', '{}', '{}', '{}', '{}', '{}')"\
+	.format("FILE_NAME", "AUTHOR", "CREATE_DATE", "LAST_UPDATE_BY", "LAST_UPDATE_TIME", "FILE_PATH",\
+		record.file_name, record.author, record.create_date, record.last_update_by, record.last_update_date, record.path)
 
 
 # give a file path, return records object
 def parse_commit(file_path):
 	commits = list(repo.iter_commits(paths=file_path))
+	path = file_path.lstrip(os.path.abspath('.'))
 
 	return Record(
 		file_path.split('/')[-1],
 		commits[-1].author.name,
 		commits[-1].committed_date,
 		commits[0].author.name,
-		commits[0].committed_date
+		commits[0].committed_date,
+		path
 		)
 
 
 class Record(object):
 	"""docstring for records"""
-	def __init__(self, file_name, author, create_date, last_update_by, last_update_date):
+	def __init__(self, file_name, author, create_date, last_update_by, last_update_date, path):
 		self.file_name = file_name
 		self.author = author
 		self.create_date = create_date
 		self.last_update_by = last_update_by
 		self.last_update_date = last_update_date
+		self.path = path
 
 	def to_string(self):
-		print('records defail: filename:%s, author:%s, create_date:%s, last_update_by:%s, last_update_date:%s' \
-			%(self.file_name, self.author, self.create_date, self.last_update_by, self.last_update_date))
+		print('records defail: filename:%s, author:%s, create_date:%s, last_update_by:%s, last_update_date:%s, path:%s' \
+			%(self.file_name, self.author, self.create_date, self.last_update_by, self.last_update_date, self.path))
 
 if __name__ == '__main__':
 	main()
