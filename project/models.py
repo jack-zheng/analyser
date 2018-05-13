@@ -1,14 +1,13 @@
 from project import db
-from sqlalchemy import desc
 from datetime import datetime
 
 
 class TestCase(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    file_name = db.Column(db.String(), nullable=False)
-    author = db.Column(db.String(), nullable=False)
-    create_date = db.Column(db.DateTime, nullable=False)
-    last_update_by = db.Column(db.String(), nullable=False)
+    file_name = db.Column(db.String())
+    author = db.Column(db.String())
+    create_date = db.Column(db.DateTime)
+    last_update_by = db.Column(db.String())
     last_updte_time = db.Column(db.DateTime)
 
     @staticmethod
@@ -23,4 +22,4 @@ class TestCase(db.Model):
         return TestCase.query.filter(TestCase.file_name.like('%'+search_key+'%')).all()
     
     def __repr__(self):
-        return '<Case: id=%r, name=%r, author=%r>' % (self.title, self.file_name, self.author)
+        return '<Case: id=%r, name=%r, author=%r>' % (self.id, self.file_name, self.author)
