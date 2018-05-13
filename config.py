@@ -1,3 +1,7 @@
-db_path='./app.db'
-git_repo='/Users/i306454/gitStore/analyser/PLT-User'
-case_folder='./PLT-User/src/com/successfactors/test/qray/cases/plt/usermanagement'
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+SECRET_KEY = 'simple_security_key'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+SQLALCHEMY_DATABASE_REPO = os.path.join(basedir, 'db_repository')
+SQLALCHEMY_TRACK_MODIFICATIONS = False

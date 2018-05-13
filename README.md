@@ -11,5 +11,15 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 all above almost done in my part time project
 + ~add file path info into case_info table when process git_migration.py~
 
-+ flask setup
++ ~flask setup~
 + flask API
++ flask docker image
+
+### DB Migration
+usage of alembic db management
+    *. when first time run, use: python manage_db.py db init
+    *. python manage_db.py db migrate --message 'some message you want'
+    *. python manage_db.py db upgrade, then the db schema will be changed
+    *. python manage_db.py db history, to check the change history
+    *. when OS is windows, mirgate with --message will be failed
+PS: SQLITE is not support the rename of column, so I have to do this db change manually
