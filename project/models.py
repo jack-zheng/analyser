@@ -19,7 +19,7 @@ class TestCase(db.Model):
     def get_max_id_record():
         return TestCase.query.order_by(desc(TestCase.id)).first()
 
-    def get_case_info(self, search_key):
+    def get_case_info(search_key):
         return TestCase.query.filter(TestCase.file_name.like('%'+search_key+'%')).all()
     
     def __repr__(self):
