@@ -8,7 +8,8 @@ class TestCase(db.Model):
     author = db.Column(db.String())
     create_date = db.Column(db.DateTime)
     last_update_by = db.Column(db.String())
-    last_updte_time = db.Column(db.DateTime)
+    last_update_time = db.Column(db.DateTime)
+    file_path = db.Column(db.String())
 
     @staticmethod
     def get_all():
