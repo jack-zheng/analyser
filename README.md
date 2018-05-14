@@ -12,8 +12,8 @@ all above almost done in my part time project
 + ~add file path info into case_info table when process git_migration.py~
 
 + ~flask setup~
-+ do data migration again
-+ flask API
++ ~do data migration again~
++ ~flask API~
 + flask docker image
 
 ### Add Flask To Runtime 
