@@ -19,6 +19,7 @@ all above almost done in my part time project
 ### Add Flask To Runtime 
 1. enable virtualenv
 2. export FLASK_APP=local_run.py
+3. export FLASK_ENV=development  <- enable debug mode
 
 ### DB Migration
 usage of alembic db management
