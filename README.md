@@ -22,9 +22,9 @@ all above almost done in my part time project
 
 ### DB Migration
 usage of alembic db management
-    *. when first time run, use: python manage_db.py db init  <- new migration folder
-    *. python manage_db.py db migrate --message 'some message you want'  <- add version info 
-    *. python manage_db.py db upgrade, then the db schema will be changed  <- db level change, create/update db
-    *. python manage_db.py db history, to check the change history
-    *. when OS is windows, mirgate with --message will be failed
+    + when first time run, use: python manage_db.py db init  <- new migration folder
+    + python manage_db.py db migrate --message 'some message you want'  <- add version info 
+    + python manage_db.py db upgrade, then the db schema will be changed  <- db level change, create/update db
+    + python manage_db.py db history, to check the change history
+    + when OS is windows, mirgate with --message will be failed
 PS: SQLITE is not support the rename of column, so I have to do this db change manually
