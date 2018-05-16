@@ -14,6 +14,9 @@ all above almost done in my part time project
 + ~flask setup~
 + ~do data migration again~
 + ~flask API~
++ ~local service setup~
++ uwsgi docker image investigation
++ nginx docker image investigation
 + flask docker image
 
 ### Add Flask To Runtime 
