@@ -1,3 +1,0 @@
-[uwsgi]
-wsgi-file=run.py
-callable=app

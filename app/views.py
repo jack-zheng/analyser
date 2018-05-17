@@ -1,11 +1,11 @@
-from project import app
+from app import app
 from flask import request, abort, jsonify
-from project.models import TestCase
+from app.models import TestCase
 
 
 @app.route('/', methods=['GET'])
 def hello():
-    return 'Hello World'
+    return 'Hello World from Analyser'
 
 
 @app.route('/qray/api/v1/<string:case_name>', methods=['GET'])
