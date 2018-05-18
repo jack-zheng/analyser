@@ -8,6 +8,21 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 4. the first time run: `docker run -p 4000:80 --name <container name> <image name>`
 5. `docker start <container name>` #run this command if the container is down
 
+## Phase II
+**Feature 01: enhance show out of case author**
++ investigate about user info fetching(Confluence/Jira/Outlook)
++ change show out to user name instead of I number
+
+**Feature 02: enhance case update**
++ about the impl of case info update
+  - long term, update by check commit info
+  - short term, everytime refresh db, update case
++ short term first
+  git lib, update repo, insert record
+  
+**Feature 03: log mechanism**
++ if necessary, store log to file
+
 ## Phase I
 + ~ensure db structure to store SVN repo case info~
 + ~fetch info of SVN repo and store to sqlite db~
