@@ -1,6 +1,9 @@
 # ignore plt-user project
 PLT-User/
 
+# ignore mac tmp file
+*.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
