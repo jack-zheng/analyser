@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.douban.com/simple" 
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+flask = "*"
+ipython = "*"
+
+[requires]
+python_version = "3.6"

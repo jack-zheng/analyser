@@ -1,9 +1,6 @@
-from flask import Flask
+from app import create_app
 
-app = Flask(__name__)
-
-from .core import app_setup
-
+app = create_app()
 
 if __name__ == "__main__":
     # Only for debugging while developing
