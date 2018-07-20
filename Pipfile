@@ -1,6 +1,6 @@
 [[source]]
 verify_ssl = true
-url = "https://pypi.org/simple"
+url = "https://pypi.douban.com/simple" 
 name = "pypi"
 
 [requires]
@@ -15,3 +15,4 @@ flask-migrate = "*"
 sqlalchemy = "*"
 flask-script = "*"
 uwsgi = "*"
+gitpython = "*"

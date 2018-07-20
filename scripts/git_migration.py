@@ -14,12 +14,14 @@ def main():
 
 	# get case info that we need to insert into db
 	file_path = []
-	for root, dirs, files in walk(config.case_folder):
+	folder_path = config.git_repo + config.case_folder
+	print('folder path: %s ' % folder_path)
+	for root, dirs, files in walk(folder_path):
 		for file in files:
 			file_path.append(os.path.abspath(join(root,file)))
 
 	# print path for debug
-	print('file path list: %s' %file_path)
+	print('file path list size: %s' %len(file_path))
 
 	# write records into db
 	conn = sqlite3.connect(config.db_path)
