@@ -49,9 +49,11 @@ def main():
 
 # insert record into db
 def build_sql(single):
+    time_create = datetime.fromtimestamp(int(float(single[3]))).strftime("%Y-%m-%d %H:%M:%S.%f")
+    time_update = datetime.fromtimestamp(int(float(single[5]))).strftime("%Y-%m-%d %H:%M:%S.%f")
     return "INSERT INTO TEST_CASE ('{}', '{}', '{}', '{}', '{}', '{}', '{}') VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}')"\
     .format("id", "file_name", "author", "create_date", "last_update_by", "last_update_time", "file_path",\
-        single[0], single[1], single[2], single[3], single[4], single[5], single[6])
+        single[0], single[1], single[2], time_create, single[4], time_update, single[6])
 
 ''' test_case & case_info table sctructure
 sqlite> .schema test_case
