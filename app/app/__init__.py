@@ -4,7 +4,7 @@ from config import Config
 
 def create_app(config_class=Config):
     app = Flask(__name__)
-    print(Config.ADMINS)
+    app.config.from_object(config_class)
 
     from .admin.admin_module import admin_bp
     app.register_blueprint(admin_bp, url_prefix='/admin')
