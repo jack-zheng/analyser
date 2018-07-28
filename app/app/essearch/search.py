@@ -17,7 +17,9 @@ def record():
     tmp = TestCase()
     ret = request.get_json()
     convert_json_to_obj(ret, tmp)
-    print(ret)
+
+    # send result to es service
+    
     response = jsonify(ret)
     response.status_code = 200
     return response

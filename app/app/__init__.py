@@ -6,7 +6,6 @@ from elasticsearch import Elasticsearch
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    print(app.config['ESSEARCH_URL'])
     app.elasticsearch = Elasticsearch([app.config['ESSEARCH_URL']])
 
     from .admin.admin_module import admin_bp

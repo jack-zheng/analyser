@@ -2,10 +2,10 @@ from datetime import datetime
 
 
 class TestCase(object):
-    def __init__(self, file_name="NA", author="NA", 
-        create_date=datetime.utcnow(), 
-        last_update_by="NA", 
-        last_update_time=datetime.utcnow(), file_path="NA"):
+    def __init__(self, file_name=None, author=None, 
+        create_date=None, 
+        last_update_by=None, 
+        last_update_time=None, file_path=None):
         self.file_name = file_name
         self.author = author
         self.create_date = create_date
