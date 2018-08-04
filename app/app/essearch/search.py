@@ -34,10 +34,3 @@ def convert_json_to_obj(json, obj):
     attrs = obj.__dict__
     for field in attrs:
         obj.__setattr__(field, json[field])
-
-def check_record(obj):
-    '''
-    check whether a record is a valid record
-    '''
-    # null point check, all fields should not be null
-    pass

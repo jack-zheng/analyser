@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 elasticsearch = "*"
 requests = "*"
+gitpython = "*"
 
 [dev-packages]
 flask = "*"
