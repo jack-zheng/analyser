@@ -1,4 +1,5 @@
 # ignore plt-user project
+.idea/
 PLT-User/
 
 # ignore mac tmp file

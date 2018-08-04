@@ -1,8 +1,7 @@
 from config import Config
 import unittest
 from app import create_app
-from app.essearch.search import essearch_bp
-from datetime import datetime
+from app.essearch import gitutil
 
 
 class Test_Config(Config):
@@ -22,27 +21,9 @@ class Tests(unittest.TestCase):
         ret = self.client.get('/essearch/')
         self.assertEqual(ret.status_code, 200)
 
-    def test_post_record(self):
-        '''
-        Test
-        @endpoint /api/record
-        @datatype json
-        @datafields 
-            file_name
-            author
-            create_date
-            last_update_by
-            last_update_time
-            file_path
-        '''
-        record = '{"file_name": "tmp_name",\
-                    "author": "jack01",\
-                    "create_date": "1",\
-                    "last_update_by": "jack02",\
-                    "last_update_time": "2",\
-                    "file_path": "/a/b/c"}'
-        resp = self.client.post('/essearch/api/record', data=record, headers={"Content-type": "application/json"})
-        print(resp.status_code)
+    def test_git_util(self):
+        gitutil.test_print()
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -19,3 +19,8 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
 * about the data backup, using real device instead fo es docker
  + or a command to migrate data everytime new docker
 * finish docker compose
+
+
+## Thinking
+* how to setup testing framework, the sub module is not easy to testing, fuck!
+* swag integrate?
