@@ -7,6 +7,15 @@ from app.models import TestCase
 def hello():
     return 'Hello World from Analyser'
 
+@app.route('/webhook', methods=['GET', 'POST'])
+def webhook():
+    if request.method == 'POST':
+        print(request.json)
+        return '', 200
+    else:
+        abort(400)
+
+
 
 @app.route('/qray/api/v1/<string:case_name>', methods=['GET'])
 def get_task(case_name):
