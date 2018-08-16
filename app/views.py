@@ -11,9 +11,10 @@ def hello():
 def webhook():
     if request.method == 'POST':
         ret = jsonify(request.json)
+        print("webhook triggered: %s" %ret)
         return ret
     else:
-        abort(400)
+        return 'Get request triggered', 200
 
 
 
