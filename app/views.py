@@ -10,8 +10,8 @@ def hello():
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'POST':
-        print(request.json)
-        return '', 200
+        ret = jsonify(request.json)
+        return ret
     else:
         abort(400)
 
