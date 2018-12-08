@@ -63,10 +63,8 @@ def parse_commit(file_path):
 
 	return Record(
 		file_path.split('/')[-1],
-		commits[-1].author.name,
-		commits[-1].committed_date,
-		commits[0].author.name,
-		commits[0].committed_date,
+		commits[-1].author.name, commits[-1].committed_date,
+		commits[0].author.name, commits[0].committed_date,
 		path
 		)
 
