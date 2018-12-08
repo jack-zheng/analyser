@@ -1,4 +1,3 @@
-db_path='./app.db'
-git_repo='/Users/i306454/gitStore/analyser/PLT-User'
-case_folder='/src/com/successfactors/test/qray/cases/plt/usermanagement'
-web_db='./../app/app.db'
+git_repo='/Users/i306454/gitStore/analyser/au-usermanagement'
+case_folder='/au-usermanagement-runtimetest/src/main/java/com/successfactors/usermanagement/qray/cases'
+db_path='./../app/app.db'
