@@ -36,12 +36,6 @@ def main():
 		print('execute complete')
 
 	conn.commit()
-
-	# insert lastest commit id to commit_trace table
-	c.execute("INSERT INTO COMMIT_TRACE ('COMMIT_ID') VALUES ('{}')".format(repo.head.object.hexsha))
-	conn.commit()
-	print('Insert lastest commit id!')
-
 	conn.close()
 	print('Finish migration!')
 
@@ -51,22 +45,24 @@ def main():
 
 # insert record into db
 def build_sql(record):
-	return "INSERT INTO CASE_INFO ('{}', '{}', '{}', '{}', '{}', '{}') VALUES ('{}', '{}', '{}', '{}', '{}', '{}')"\
+	return "INSERT INTO test_case ('{}', '{}', '{}', '{}', '{}', '{}') VALUES ('{}', '{}', '{}', '{}', '{}', '{}')"\
 	.format("FILE_NAME", "AUTHOR", "CREATE_DATE", "LAST_UPDATE_BY", "LAST_UPDATE_TIME", "FILE_PATH",\
 		record.file_name, record.author, record.create_date, record.last_update_by, record.last_update_date, record.path)
 
 
 # give a file path, return records object
 def parse_commit(file_path):
+	print("file_path: %s" %file_path)
 	commits = list(repo.iter_commits(paths=file_path))
-	path = file_path.lstrip(os.path.abspath('.'))
+	path = file_path.replace('/Users/i306454/gitStore/analyser', '')
+	print("path after lstrip: %s" % path)
 
 	return Record(
 		file_path.split('/')[-1],
 		commits[-1].author.name,
-		commits[-1].committed_date,
+		datetime.fromtimestamp(commits[-1].committed_date).strftime("%Y-%m-%d %H:%M:%S.%f"),
 		commits[0].author.name,
-		commits[0].committed_date,
+		datetime.fromtimestamp(commits[0].committed_date).strftime("%Y-%m-%d %H:%M:%S.%f"),
 		path
 		)
 
