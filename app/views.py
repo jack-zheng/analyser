@@ -7,6 +7,19 @@ from app.models import TestCase
 def hello():
     return 'Hello World from Analyser'
 
+
+@app.route('/apacheclient', methods=['POST'])
+def apacheclient():
+    """
+    Test API for reading Apache HttpClient source code
+    :return: json context of request body
+    """
+    if not request.json:
+        abort(400, "Not a json format")
+    print(request.json)
+    return jsonify(request.json)
+
+
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'POST':
@@ -15,7 +28,6 @@ def webhook():
         return ret
     else:
         return 'Get request triggered', 200
-
 
 
 @app.route('/qray/api/v1/<string:case_name>', methods=['GET'])

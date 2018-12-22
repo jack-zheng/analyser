@@ -8,12 +8,19 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 4. the first time run: `docker run -p 4000:80 --name <container name> <image name>`
 5. `docker start <container name>` #run this command if the container is down
 
+## Debug website without run docker
+1. enable virtualenv
+    * cd to project folder, run command 'pipenv shell'
+2. special the run file to start local website: export FLASK_APP=local_run.py
+3. open debug mode and you can modify your code in fly: export FLASK_ENV=development
+4. start web service: flask run
+
 ## Task List
 ** AD Hoc Task:**
 + ~~migrate git to dev branch, update config~~
 + update new cases info after migration
 + daily case info update
-+ webhook case info update
++ web hook case info update
 
 ** Feature Backup **
 + Integrate with Swagger
@@ -31,12 +38,6 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
   
 **Feature backup: log mechanism **
 + if necessary, store log to file
-
-
-### Add Flask To Runtime 
-1. enable virtualenv
-2. export FLASK_APP=local_run.py
-3. export FLASK_ENV=development  <- enable debug mode
 
 ### DB Migration
 usage of alembic db management
