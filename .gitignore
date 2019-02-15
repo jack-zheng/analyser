@@ -1,5 +1,6 @@
 # ignore plt-user project
 PLT-User/
+au-usermanagement/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
