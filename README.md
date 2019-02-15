@@ -7,8 +7,7 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 1. download this repo
 2. cd analyser
 3. run command: `docker build -t <image name> .`  #this command will create a image you will run later
-4. the first time run: `docker run -p 4000:80 --name <container name> <image name>`
-5. `docker start <container name>` #run this command if the container is down
+4. the first time run: `docker run -d -p 4000:80 --name <container name> <image name>`
 
 ## Debug website without run docker
 
