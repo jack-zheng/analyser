@@ -16,6 +16,13 @@ class TestCase(db.Model):
         return TestCase.query.all()
 
     @staticmethod
+    def delete_all():
+        count = TestCase.query.delete()
+        db.session.commit()
+        print("Delete all records from test_case table.")
+        return count
+
+    @staticmethod
     def get_max_id_record():
         return TestCase.query.order_by(desc(TestCase.id)).first()
 
