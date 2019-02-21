@@ -4,7 +4,7 @@ url = "https://pypi.douban.com/simple"
 name = "pypi"
 
 [requires]
-python_version = "3.5"
+python_version = "3.6"
 
 [dev-packages]
 ipython = "*"

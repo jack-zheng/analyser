@@ -16,11 +16,15 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 1. open debug mode and you can modify your code in fly: export FLASK_ENV=development
 1. start web service: flask run
 
-## Debug Model
+## Debug Mode Class
 
 1. fire virtual env 'pipenv shell' and 'ipython'
 1. 'from app import db' and 'from app.models import TestCase'
 1. test model method using 'TestCase.get_all()'
+
+## Other Debug Tips
+
+* export lib list to file: `pipenv lock -r > requirements.txt`
 
 ## Task List
 
