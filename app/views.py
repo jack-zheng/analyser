@@ -6,6 +6,10 @@ from git import Repo
 from os import walk
 from os.path import join
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 @app.route('/', methods=['GET'])
@@ -38,8 +42,7 @@ def webhook():
         webhookrepo = ''
         repopath = './au-usermanagement'
         if not os.path.isdir(repopath):
-            repourl = 'https://github.wdf.sap.corp/bizx/au-usermanagement.git'
-            webhookrepo = Repo.clone_from(url=repourl, to_path=repopath)
+            webhookrepo = Repo.clone_from(url=os.getenv('clone_url'), to_path=repopath)
             print('Finish Clone!')
         else:
             webhookrepo = Repo(repopath)
@@ -71,7 +74,6 @@ def webhook():
 
         insertrows = []
         for path in file_path:
-            print('process path: %s' % path)
             prefix = path.split('au-usermanagement')[0]
             commits = list(webhookrepo.iter_commits(paths=path))
 
