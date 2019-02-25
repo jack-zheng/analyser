@@ -42,8 +42,10 @@ def webhook():
         webhookrepo = ''
         repopath = './au-usermanagement'
         if not os.path.isdir(repopath):
-            webhookrepo = Repo.clone_from(url=os.getenv('clone_url'), to_path=repopath)
+            webhookrepo = Repo.clone_from(
+                url=os.getenv('clone_url'), to_path=repopath)
             print('Finish Clone!')
+
         else:
             webhookrepo = Repo(repopath)
             webhookrepo.remotes.origin.pull()
