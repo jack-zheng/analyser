@@ -7,6 +7,7 @@ from os import walk
 from os.path import join
 import os
 from dotenv import load_dotenv
+import logging
 
 
 load_dotenv()
@@ -16,7 +17,14 @@ load_dotenv()
 def hello():
     return '''
         <h1>Hello World from Analyser</h1>
-        <h2>run post against /webhook will update git records automatically</h2>
+        <h2>
+            run post against /webhook will update git records automatically
+            <br>
+            <code>
+                CURL -H "Content-Type:application/json"
+                 -X POST http://10.129.126.245:4000/webhook
+            </code>
+        </h2>
         '''
 
 
@@ -76,6 +84,9 @@ def webhook():
                 file_path.append(os.path.abspath(join(root, file)))
 
         print('[%s] records will be inserted' % len(file_path))
+        logging.warning('Last file path: %s' % file_path[-1])
+
+        tmp_relative_path = ""
 
         insertrows = []
         for path in file_path:
@@ -88,6 +99,7 @@ def webhook():
             lby = commits[0].author.name
             ldate = datetime.fromtimestamp(commits[0].committed_date)
             relative_path = path.replace(prefix, '')
+            tmp_relative_path = relative_path
 
             case = TestCase(file_name=fname, author=author, create_date=cdate,
                             last_update_by=lby, last_update_time=ldate,
@@ -96,6 +108,9 @@ def webhook():
 
         db.session.add_all(insertrows)
         db.session.commit()
+
+        logging.warning('tmp relative path: %s' % tmp_relative_path)
+        logging.warning('last record: %s' % insertrows[-1])
 
         print('Start Recover SVN History!')
         sql = '''
@@ -111,7 +126,7 @@ def webhook():
         db.session.execute(sql)
         db.session.commit()
 
-        return "Finish Process Post Request! Git records should be updated", 200
+        return "Finish Process Post Request! Git records have updated", 200
     else:
         return 'Get request triggered', 200
 

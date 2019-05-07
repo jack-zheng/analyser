@@ -1,5 +1,4 @@
 from app import db
-from datetime import datetime
 
 
 class TestCase(db.Model):
@@ -22,12 +21,10 @@ class TestCase(db.Model):
         print("Delete all records from test_case table.")
         return count
 
-    @staticmethod
-    def get_max_id_record():
-        return TestCase.query.order_by(desc(TestCase.id)).first()
-
     def get_case_info(search_key):
-        return TestCase.query.filter(TestCase.file_name.like('%'+search_key+'%')).all()
-    
+        return TestCase.query.filter(
+            TestCase.file_name.like('%'+search_key+'%')).all()
+
     def __repr__(self):
-        return '<Case: id=%r, name=%r, author=%r>' % (self.id, self.file_name, self.author)
+        return '<Case: id=%r, name=%r, author=%r, path=%r>' % (
+            self.id, self.file_name, self.author, self.file_path)
