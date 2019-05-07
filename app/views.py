@@ -14,7 +14,10 @@ load_dotenv()
 
 @app.route('/', methods=['GET'])
 def hello():
-    return 'Hello World from Analyser'
+    return '''
+        <h1>Hello World from Analyser</h1>
+        <h2>run post against /webhook will update git records automatically</h2>
+        '''
 
 
 @app.route('/apacheclient', methods=['POST'])
@@ -108,7 +111,7 @@ def webhook():
         db.session.execute(sql)
         db.session.commit()
 
-        return "Finish Process Post Request!", 200
+        return "Finish Process Post Request! Git records should be updated", 200
     else:
         return 'Get request triggered', 200
 
