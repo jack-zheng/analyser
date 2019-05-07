@@ -36,7 +36,7 @@ def apacheclient():
     """
     if not request.json:
         abort(400, "Not a json format")
-    print(request.json)
+    logging.warning(request.json)
     return jsonify(request.json)
 
 
@@ -55,12 +55,12 @@ def webhook():
         if not os.path.isdir(repopath):
             webhookrepo = Repo.clone_from(
                 url=os.getenv('clone_url'), to_path=repopath)
-            print('Finish Clone!')
+            logging.warning('Finish Clone!')
 
         else:
             webhookrepo = Repo(repopath)
             webhookrepo.remotes.origin.pull()
-            print('Finish Pull')
+            logging.warning('Finish Pull')
 
         # 2. clean db data
         #       * delete all records from test_case table
@@ -70,7 +70,7 @@ def webhook():
         db.session.execute(
             "update sqlite_sequence set seq = 0 where name = 'test_case'")
         db.session.commit()
-        print('Finish Clean DB!')
+        logging.warning('Finish Clean DB!')
 
         # 3. update test case info
         #       * loop git repo, update history of test case to test_case table
@@ -78,15 +78,12 @@ def webhook():
         file_path = []
         folder_path = repopath + '/au-usermanagement-runtimetest/src/'\
             'main/java/com/successfactors/usermanagement/qray/cases'
-        print('folder path: %s ' % folder_path)
+        logging.warning('folder path: %s ' % folder_path)
         for root, dirs, files in walk(folder_path):
             for file in files:
                 file_path.append(os.path.abspath(join(root, file)))
 
-        print('[%s] records will be inserted' % len(file_path))
-        logging.warning('Last file path: %s' % file_path[-1])
-
-        tmp_relative_path = ""
+        logging.warning('[%s] records will be inserted' % len(file_path))
 
         insertrows = []
         for path in file_path:
@@ -98,8 +95,7 @@ def webhook():
             cdate = datetime.fromtimestamp(commits[-1].committed_date)
             lby = commits[0].author.name
             ldate = datetime.fromtimestamp(commits[0].committed_date)
-            relative_path = path.replace(prefix, '')
-            tmp_relative_path = relative_path
+            relative_path = path.replace(prefix, '', 1)
 
             case = TestCase(file_name=fname, author=author, create_date=cdate,
                             last_update_by=lby, last_update_time=ldate,
@@ -109,10 +105,7 @@ def webhook():
         db.session.add_all(insertrows)
         db.session.commit()
 
-        logging.warning('tmp relative path: %s' % tmp_relative_path)
-        logging.warning('last record: %s' % insertrows[-1])
-
-        print('Start Recover SVN History!')
+        logging.warning('Start Recover SVN History!')
         sql = '''
         update
             test_case
