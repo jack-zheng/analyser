@@ -8,6 +8,7 @@ from os.path import join
 import os
 from dotenv import load_dotenv
 import logging
+import re
 
 
 load_dotenv()
@@ -46,6 +47,9 @@ def webhook():
     Webhook to trigger git history update.
     1. regist webhook on repo -> setting -> webhook
     2. add route in you website and business code when hook triggered
+
+    [Warning!!!] since I got no permission to create a webhook to official
+    repo, I leave this interface, and trigger the udpate manually.
     '''
     if request.method == 'POST':
         # Steps to update git history to db
@@ -91,9 +95,11 @@ def webhook():
             commits = list(webhookrepo.iter_commits(paths=path))
 
             fname = path.split('/')[-1]
-            author = commits[-1].author.name
+            # the username format is not unique, may be number or just name
+            # so if the name is not id, use email address instead.
+            author = get_user_id(commits[-1])
             cdate = datetime.fromtimestamp(commits[-1].committed_date)
-            lby = commits[0].author.name
+            lby = get_user_id(commits[0])
             ldate = datetime.fromtimestamp(commits[0].committed_date)
             relative_path = path.replace(prefix, '', 1)
 
@@ -144,3 +150,18 @@ def convert_sqlalchemy_to_json(row):
     tmp = row.__dict__
     tmp.pop(popkey)
     return tmp
+
+
+def get_user_id(commit):
+    '''
+    return user id.
+    regex to match id format like: C111111, if author name is not id, use email
+    as key to get user id.
+    '''
+    match = r'\w\d+'
+
+    if re.search(match, commit.author.name):
+        return commit.author.name
+
+    return os.getenv(commit.author.email) if os.getenv(commit.author.email)\
+        else commit.author.email
