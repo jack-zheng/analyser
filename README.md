@@ -29,9 +29,14 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 
 ## Task List
 
-single script to finish new case migrate(function under script folder)
+In this branch, I will take in a new feature that show user info of our team, user info include email, id, username, jira full name. also I will try to use blue print and refactor the legacy website sctructure. so this feature include:
 
-**Backlog:**
+1. new page to show user list
+1. add function on this page
+1. edit function on this page
+1. remove function on this page
+1. able to copy to clipboard, format is 'username \<email addr\>'
+1. use bootstrap to make up it
 
 ### DB Migration
 
