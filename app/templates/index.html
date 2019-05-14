@@ -15,11 +15,30 @@
 
 </div>
 
-<div class="list-group">
+<div class="container">
     <p>Members List:</p>
-    {% for user in users %}
-    <h5 class="mb-1 text-success">{{ user }}</h5>
-    {% endfor %}
+    
+
+
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">User Id</th>
+            <th scope="col">Email</th>
+            <th scope="col">Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 </div>
+
 
 {% endblock %}

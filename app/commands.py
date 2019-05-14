@@ -1,7 +1,7 @@
 import click
 
 from app import app, db
-from app.models import TestCase
+from app.models import TestCase, User
 
 
 @app.cli.command()
@@ -39,6 +39,16 @@ def forge(count):
             file_path="filepath" + str(i)
         )
         db.session.add(message)
+    db.session.commit()
+
+    click.echo('Create fake data in user table...')
+    for i in range(count):
+        message = User(
+            id='tmpid' + str(i),
+            username=fake.name(),
+            email=fake.email()
+        )
+        db.session.add(message)
 
     db.session.commit()
-    click.echo('Created %d fake messages.' % count)
+    click.echo('Created %d fake record in each table.' % count)

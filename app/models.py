@@ -28,3 +28,12 @@ class TestCase(db.Model):
     def __repr__(self):
         return '<Case: id=%r, name=%r, author=%r, path=%r>' % (
             self.id, self.file_name, self.author, self.file_path)
+
+
+class User(db.Model):
+    id = db.Column(db.String(30), primary_key=True)
+    username = db.Column(db.String(64))
+    email = db.Column(db.String(120), index=True)
+
+    def __repr__(self):
+        return '<User {}, {}>'.format(self.id, self.email)

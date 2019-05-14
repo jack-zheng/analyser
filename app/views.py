@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import TestCase
+from app.models import TestCase, User
 from datetime import datetime
 from flask import request, abort, jsonify
 from git import Repo
@@ -16,20 +16,7 @@ load_dotenv()
 
 @app.route('/', methods=['GET'])
 def hello():
-    '''return
-        <h1>Hello World from Analyser</h1>
-        <h2>
-            run post against /webhook will update git records automatically
-            <br>
-            <code>
-                CURL -H "Content-Type:application/json"
-                 -X POST http://10.129.126.245:4000/webhook
-            </code>
-        </h2>
-        '''
-    fuser1 = {"id": "i1", "name": "jack", "email": "email01@xx.com"}
-    fuser2 = {"id": "i2", "name": "jack", "email": "email01@xx.com"}
-    users = [fuser1, fuser2]
+    users = User.query.all()
     return render_template('index.html', users=users)
 
 

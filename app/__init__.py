@@ -11,4 +11,9 @@ app.secret_key = app.config.get('SECRET_KEY')
 migrate = Migrate(app, db)
 Bootstrap(app)
 
+
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db)
+
 from app import views, models, commands
