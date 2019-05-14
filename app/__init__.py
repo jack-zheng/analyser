@@ -11,5 +11,4 @@ app.secret_key = app.config.get('SECRET_KEY')
 migrate = Migrate(app, db)
 Bootstrap(app)
 
-
-from app import views, models
+from app import views, models, commands
