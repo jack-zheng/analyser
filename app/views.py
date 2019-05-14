@@ -9,14 +9,14 @@ import os
 from dotenv import load_dotenv
 import logging
 import re
-
+from flask import render_template
 
 load_dotenv()
 
 
 @app.route('/', methods=['GET'])
 def hello():
-    return '''
+    '''return
         <h1>Hello World from Analyser</h1>
         <h2>
             run post against /webhook will update git records automatically
@@ -27,6 +27,10 @@ def hello():
             </code>
         </h2>
         '''
+    fuser1 = {"id": "i1", "name": "jack", "email": "email01@xx.com"}
+    fuser2 = {"id": "i2", "name": "jack", "email": "email01@xx.com"}
+    users = [fuser1, fuser2]
+    return render_template('index.html', users=users)
 
 
 @app.route('/apacheclient', methods=['POST'])
@@ -57,8 +61,8 @@ def webhook():
         webhookrepo = ''
         repopath = './au-usermanagement'
         if not os.path.isdir(repopath):
-            webhookrepo = Repo.clone_from(
-                url=os.getenv('clone_url'), to_path=repopath)
+            webhookrepo = Repo.clone_from(url=os.getenv('clone_url'),
+                                          to_path=repopath)
             logging.warning('Finish Clone!')
 
         else:
@@ -103,8 +107,11 @@ def webhook():
             ldate = datetime.fromtimestamp(commits[0].committed_date)
             relative_path = path.replace(prefix, '', 1)
 
-            case = TestCase(file_name=fname, author=author, create_date=cdate,
-                            last_update_by=lby, last_update_time=ldate,
+            case = TestCase(file_name=fname,
+                            author=author,
+                            create_date=cdate,
+                            last_update_by=lby,
+                            last_update_time=ldate,
                             file_path=relative_path)
             insertrows.append(case)
 

@@ -13,9 +13,8 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 
 1. enable virtualenv
     * cd to project folder, run command 'pipenv shell'
-1. special the run file to start local website: export FLASK_APP=local_run.py
-1. open debug mode and you can modify your code in fly: export FLASK_ENV=development
 1. start web service: flask run
+    * it enable debug by default which is setting in file `.flaskenv`
 
 ## Debug Mode Class
 
@@ -29,7 +28,7 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 
 ## Task List
 
-In this branch, I will take in a new feature that show user info of our team, user info include email, id, username, jira full name. also I will try to use blue print and refactor the legacy website sctructure. so this feature include:
+In this branch, I will take in a new feature that show user info of our team, user info include email, id, username. also I will try to use blue print and refactor the legacy website sctructure. so this feature include:
 
 1. new page to show user list
 1. add function on this page
