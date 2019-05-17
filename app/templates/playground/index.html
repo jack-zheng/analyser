@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+<div class="container">
+
+    <h1>Typing Area</h1>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+
+    {% if content %}
+    <br>
+    <ul>
+        <li>Name: {{ content[0] }}</li>
+        <li>Body: {{ content[1] }}</li>
+    </ul>
+    {% endif %}
+
+</div>
+{% endblock %}

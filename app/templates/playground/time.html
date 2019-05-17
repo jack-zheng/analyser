@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+
+
+    <div class="row">
+
+            <p>Show Time</p>
+            <h1>Origin: {{ time }}</h1>
+            <h1>L: {{ moment(time).calendar() }}</h1>
+            <h1>LL: {{ moment(time).format('MMMM Do YYYY, h:mm:ss a') }}</h1>
+            <h1>llll: {{ moment(time).format('llll') }}</h1>
+            {{ moment(time).fromNow(refresh=True) }}
+    </div>
+</div>
+
+{% endblock %}
+
+

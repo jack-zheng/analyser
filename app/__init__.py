@@ -6,8 +6,9 @@ from app.models import TestCase, User
 
 from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
+from app.blueprints.playground import playground_bp
 
-from app.extensions import bootstrap, migrate, db
+from app.extensions import bootstrap, migrate, db, moment
 
 
 def create_app():
@@ -25,12 +26,14 @@ def create_app():
 def register_blueprints(app):
     app.register_blueprint(history_bp)
     app.register_blueprint(member_bp, url_prefix='/member')
+    app.register_blueprint(playground_bp, url_prefix='/playground')
 
 
 def register_extensions(app):
     bootstrap.init_app(app)
     migrate.init_app(app)
     db.init_app(app)
+    moment.init_app(app)
 
 
 def register_shell_context(app):
