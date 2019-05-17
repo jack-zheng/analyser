@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from .config import Config
 
 import click
@@ -18,6 +18,7 @@ def create_app():
     register_blueprints(app)
     register_shell_context(app)
     register_commands(app)
+    register_errors(app)
     return app
 
 
@@ -36,6 +37,20 @@ def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
         return dict(db=db)
+
+
+def register_errors(app):
+    @app.errorhandler(400)
+    def bad_request(e):
+        return render_template('errors/400.html'), 400
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('errors/404.html'), 404
+
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        return render_template('errors/500.html'), 500
 
 
 def register_commands(app):

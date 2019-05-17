@@ -19,8 +19,7 @@ history_bp = Blueprint('history', __name__)
 
 @history_bp.route('/', methods=['GET'])
 def hello():
-    users = User.query.all()
-    return render_template('index.html', users=users)
+    return render_template('history/index.html')
 
 
 @history_bp.route('/apacheclient', methods=['POST'])
