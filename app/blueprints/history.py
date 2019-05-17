@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from app.extensions import db
-from app.models import TestCase, User
+from app.models import TestCase
 from datetime import datetime
 from flask import request, abort, jsonify
 from git import Repo
