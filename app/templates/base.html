@@ -18,6 +18,17 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
             </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            GoTo
+                        </a>
+                        <div class="dropdown-menu pull-left">
+                                <a class="dropdown-item" href="{{ url_for('member.list') }}">Member List</a>
+                        </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
@@ -25,6 +36,6 @@
 
 {% block content %}
 <div class="container">
-  {% block page_content %}{% endblock %}
+    {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
