@@ -1,4 +1,5 @@
-from app import app, db
+from flask import Blueprint, render_template
+from app.extensions import db
 from app.models import TestCase
 from datetime import datetime
 from flask import request, abort, jsonify
@@ -10,26 +11,18 @@ from dotenv import load_dotenv
 import logging
 import re
 
-
 load_dotenv()
 
 
-@app.route('/', methods=['GET'])
+history_bp = Blueprint('history', __name__)
+
+
+@history_bp.route('/', methods=['GET'])
 def hello():
-    return '''
-        <h1>Hello World from Analyser</h1>
-        <h2>
-            run post against /webhook will update git records automatically
-            <br>
-            <code>
-                CURL -H "Content-Type:application/json"
-                 -X POST http://10.129.126.245:4000/webhook
-            </code>
-        </h2>
-        '''
+    return render_template('history/index.html')
 
 
-@app.route('/apacheclient', methods=['POST'])
+@history_bp.route('/apacheclient', methods=['POST'])
 def apacheclient():
     """
     Test API for reading Apache HttpClient source code
@@ -41,7 +34,7 @@ def apacheclient():
     return jsonify(request.json)
 
 
-@app.route('/webhook', methods=['GET', 'POST'])
+@history_bp.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     '''
     Webhook to trigger git history update.
@@ -57,8 +50,8 @@ def webhook():
         webhookrepo = ''
         repopath = './au-usermanagement'
         if not os.path.isdir(repopath):
-            webhookrepo = Repo.clone_from(
-                url=os.getenv('clone_url'), to_path=repopath)
+            webhookrepo = Repo.clone_from(url=os.getenv('clone_url'),
+                                          to_path=repopath)
             logging.warning('Finish Clone!')
 
         else:
@@ -103,8 +96,11 @@ def webhook():
             ldate = datetime.fromtimestamp(commits[0].committed_date)
             relative_path = path.replace(prefix, '', 1)
 
-            case = TestCase(file_name=fname, author=author, create_date=cdate,
-                            last_update_by=lby, last_update_time=ldate,
+            case = TestCase(file_name=fname,
+                            author=author,
+                            create_date=cdate,
+                            last_update_by=lby,
+                            last_update_time=ldate,
                             file_path=relative_path)
             insertrows.append(case)
 
@@ -130,7 +126,7 @@ def webhook():
         return 'Get request triggered', 200
 
 
-@app.route('/qray/api/v1/<string:case_name>', methods=['GET'])
+@history_bp.route('/qray/api/v1/<string:case_name>', methods=['GET'])
 def get_task(case_name):
     ret = TestCase.get_case_info(case_name)
     if not ret:

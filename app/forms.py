@@ -1,17 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DecimalField, DateTimeField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Length
 
 
-class SampleForm(FlaskForm):
-    txt_field = StringField('txt_field', validators=[DataRequired()])
-    submit = SubmitField('Sign In')
-
-
-class TaskForm(FlaskForm):
-    title = StringField("title", validators=[DataRequired()])
-    start_time = DateTimeField("start", format='%Y-%m-%d %H:%M:%S')
-    end_time = DateTimeField("end", format='%Y-%m-%d %H:%M:%S')
-    release = DecimalField("release", places=4)
-
-    submit = SubmitField("Insert New")
+class PlayGroundForm(FlaskForm):
+    '''
+    Form for play ground demo. in this class, we accept input and show it
+    on page after submit
+    '''
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    body = TextAreaField('Message',
+                         validators=[DataRequired(), Length(1, 200)])
+    submit = SubmitField()
