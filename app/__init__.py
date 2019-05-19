@@ -1,7 +1,8 @@
 from flask import Flask, render_template
-from .config import Config
+from app.settings import config
 
 import click
+import os
 from app.models import TestCase, User
 
 from app.blueprints.member import member_bp
@@ -11,9 +12,12 @@ from app.blueprints.playground import playground_bp
 from app.extensions import bootstrap, migrate, db, moment
 
 
-def create_app():
+def create_app(config_name=None):
+    if config_name is None:
+        config_name = os.getenv('FLASK_CONFIG', 'development')
+
     app = Flask('app')
-    app.config.from_object(Config)
+    app.config.from_object(config[config_name])
     app.secret_key = app.config.get('SECRET_KEY')
     register_extensions(app)
     register_blueprints(app)

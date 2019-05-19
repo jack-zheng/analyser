@@ -9,5 +9,6 @@ class PlayGroundForm(FlaskForm):
     on page after submit
     '''
     name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
-    body = TextAreaField('Message', validators=[DataRequired(), Length(1, 200)])
+    body = TextAreaField('Message',
+                         validators=[DataRequired(), Length(1, 200)])
     submit = SubmitField()
