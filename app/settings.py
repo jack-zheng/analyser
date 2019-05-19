@@ -15,6 +15,7 @@ class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CKEDITOR_ENABLE_CSRF = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 
 class DevelopmentConfig(BaseConfig):
@@ -30,6 +31,7 @@ class TestingConfig(BaseConfig):
 class ProductionConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'DATABASE_URL', prefix + os.path.join(basedir, 'app.db'))
+    DEBUG_TB_ENABLED = False
 
 
 config = {

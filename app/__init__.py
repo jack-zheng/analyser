@@ -9,7 +9,8 @@ from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
 from app.blueprints.playground import playground_bp
 
-from app.extensions import bootstrap, migrate, db, moment
+from app.extensions import bootstrap, migrate, db, moment,\
+     debugToolbarExtension
 
 
 def create_app(config_name=None):
@@ -38,6 +39,7 @@ def register_extensions(app):
     migrate.init_app(app)
     db.init_app(app)
     moment.init_app(app)
+    debugToolbarExtension.init_app(app)
 
 
 def register_shell_context(app):
