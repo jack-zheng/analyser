@@ -22,3 +22,5 @@ python-dotenv = "*"
 pip = "*"
 flask-apscheduler = "*"
 flask-bootstrap = "*"
+flask-moment = '*'
+flask-wtf = '*'
