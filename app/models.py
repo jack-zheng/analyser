@@ -2,7 +2,7 @@ from app.extensions import db
 
 
 class TestCase(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String())
     author = db.Column(db.String())
     create_date = db.Column(db.DateTime)
@@ -13,13 +13,6 @@ class TestCase(db.Model):
     @staticmethod
     def get_all():
         return TestCase.query.all()
-
-    @staticmethod
-    def delete_all():
-        count = TestCase.query.delete()
-        db.session.commit()
-        print("Delete all records from test_case table.")
-        return count
 
     def get_case_info(search_key):
         return TestCase.query.filter(
@@ -37,3 +30,16 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}, {}>'.format(self.id, self.email)
+
+
+class CaseBackup(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    file_name = db.Column(db.String())
+    author = db.Column(db.String())
+    create_date = db.Column(db.DateTime)
+    last_update_by = db.Column(db.String())
+    last_update_time = db.Column(db.DateTime)
+    file_path = db.Column(db.String())
+
+    def __repr__(self):
+        return '<CaseBackup {}, {}>'.format(self.id, self.email)

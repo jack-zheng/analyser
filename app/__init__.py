@@ -3,7 +3,8 @@ from app.settings import config
 
 import click
 import os
-from app.models import TestCase, User
+from dotenv import load_dotenv
+from app.models import TestCase, User, CaseBackup
 
 from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
@@ -11,6 +12,9 @@ from app.blueprints.playground import playground_bp
 
 from app.extensions import bootstrap, migrate, db, moment,\
      debugToolbarExtension
+
+
+load_dotenv()
 
 
 def create_app(config_name=None):
@@ -111,3 +115,17 @@ def register_commands(app):
 
         db.session.commit()
         click.echo('Created %d fake record in each table.' % count)
+
+    @app.cli.command()
+    def recover_svn():
+        """Extract data from sql file and insert to case_backup table."""
+        click.echo('Clean Case Backup Table')
+        CaseBackup.query.delete()
+        db.session.commit()
+
+        click.echo('Start Recover...')
+        sql_file = 'case_backup.sql'
+        with open(sql_file, 'r') as file:
+            for sql in file.readlines():
+                db.engine.execute(sql)
+        click.echo('Finish Data Recover...')
