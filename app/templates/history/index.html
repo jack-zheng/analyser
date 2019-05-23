@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
 {% block content %}
 
 <div class="container">
@@ -10,6 +12,12 @@
             CURL -H "Content-Type:application/json" -X POST http://10.129.126.245:4000/webhook
     </code>
     </pre>
+    {{ wtf.quick_form(form) }}
 
+    {% if cost %}
+    <br>
+    <div class="alert alert-success" role="alert">Git history update in: {{ cost }} sec!</div>
+    {% endif %}
 </div>
+
 {% endblock %}

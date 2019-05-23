@@ -12,3 +12,10 @@ class PlayGroundForm(FlaskForm):
     body = TextAreaField('Message',
                          validators=[DataRequired(), Length(1, 200)])
     submit = SubmitField()
+
+
+class UpdateForm(FlaskForm):
+    '''
+    Form that used to trigger update of github history manually.
+    '''
+    submit = SubmitField('Update')
