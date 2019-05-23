@@ -7,11 +7,8 @@ from git import Repo
 from os import walk
 from os.path import join
 import os
-from dotenv import load_dotenv
 import logging
 import re
-
-load_dotenv()
 
 
 history_bp = Blueprint('history', __name__)
@@ -63,11 +60,8 @@ def webhook():
         #       * delete all records from test_case table
         #       * update slqite_sequence table to reset test_case table
         #       auto increment count
-        TestCase.delete_all()
-        db.session.execute(
-            "update sqlite_sequence set seq = 0 where name = 'test_case'")
-        db.session.commit()
-        logging.warning('Finish Clean DB!')
+        count = TestCase.query.delete()
+        logging.warning('Finish Clean DB! %s records been deleted.' % count)
 
         # 3. update test case info
         #       * loop git repo, update history of test case to test_case table
