@@ -5,8 +5,8 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 ## Usage
 
 1. download this repo and cd to analyser
-1. run command: `docker build -t <image name> .`  #this command will create a image you will run later
-1. the first time run: `docker run -d -p 4000:80 --name <container name> <image name>`
+1. run command: `docker build -t analyzer .`  #this command will create a image you will run later
+1. the first time run: `docker run -d -p 4000:80 --name analyzer_jk analyzer`
 1. send post request to website to trigger history update `CURL -H "Content-Type:application/json" -X POST http://10.129.126.245:4000/webhook`
 
 ## Debug website without run docker
@@ -24,7 +24,7 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 
 ## Other Debug Tips
 
-* export lib list to file: `pipenv lock -r > requirements.txt`
+* export lib list to file: `pipenv lock -r > app/requirements.txt`
 
 ## Task List
 
