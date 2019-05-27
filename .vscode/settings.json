@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": ".venv/bin/python",
+    "python.pythonPath": "C:\\Users\\Jack\\.virtualenvs\\analyser-d9cOcOua\\Scripts\\python.exe",
     "editor.renderWhitespace": "all",
     "editor.detectIndentation": false,
     "python.linting.flake8Enabled": true,

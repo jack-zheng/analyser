@@ -16,6 +16,7 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CKEDITOR_ENABLE_CSRF = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False
+    DEBUG_TB_ENABLED = False
 
 
 class DevelopmentConfig(BaseConfig):

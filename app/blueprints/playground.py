@@ -22,3 +22,9 @@ def show_submitted():
 def show_time():
     return render_template(
         'playground/time.html', time=datetime.utcnow())
+
+
+@playground_bp.route('/flash', methods=['GET'])
+def show_flash():
+    flash(u'Invalid password provided', 'error')
+    return render_template('playground/flash.html')
