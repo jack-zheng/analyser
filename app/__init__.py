@@ -12,7 +12,7 @@ from app.blueprints.playground import playground_bp
 from app.blueprints.auth import auth_bp
 
 from app.extensions import bootstrap, migrate, db, moment,\
-     debugToolbarExtension, login_manager
+     debugToolbarExtension, login_manager, csrf
 
 
 load_dotenv()
@@ -47,6 +47,7 @@ def register_extensions(app):
     moment.init_app(app)
     debugToolbarExtension.init_app(app)
     login_manager.init_app(app)
+    csrf.init_app(app)
 
 
 def register_shell_context(app):
