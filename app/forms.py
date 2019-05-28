@@ -23,7 +23,9 @@ class UpdateForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(1, 128)])
+    username = StringField(
+        'Username', validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField(
+        'Password', validators=[DataRequired(), Length(1, 128)])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log in')

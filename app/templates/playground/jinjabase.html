@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% block styles %}
+{{super()}}
+{% endblock %}
+{% block title %}This is an example page{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  Naaaaavigation
+  <br>
+</div>
+{% endblock %}
+
+
+
+{%- block content %}
+{% block footer %}
+<footer>&copy; 2016 Awesome, Inc.</footer>
+{% endblock footer %}
+{%- endblock content %}
+
+
+

@@ -21,9 +21,10 @@ def login():
         remember = form.remember.data
         admin = Admin.query.first()
         if admin:
-            if username == admin.username and admin.validate_password(password):
+            if username == admin.username and \
+                    admin.validate_password(password):
                 login_user(admin, remember)
-                flash('Welcome back.' 'info')
+                flash('Welcome back.', 'info')
                 return redirect_back()
             flash('Invalid username or password.', 'warning')
         else:
