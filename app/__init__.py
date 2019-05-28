@@ -9,9 +9,10 @@ from app.models import TestCase, User, CaseBackup
 from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
 from app.blueprints.playground import playground_bp
+from app.blueprints.auth import auth_bp
 
 from app.extensions import bootstrap, migrate, db, moment,\
-     debugToolbarExtension
+     debugToolbarExtension, login_manager, csrf
 
 
 load_dotenv()
@@ -36,6 +37,7 @@ def register_blueprints(app):
     app.register_blueprint(history_bp)
     app.register_blueprint(member_bp, url_prefix='/member')
     app.register_blueprint(playground_bp, url_prefix='/playground')
+    app.register_blueprint(auth_bp, url_prefix='/auth')
 
 
 def register_extensions(app):
@@ -44,6 +46,8 @@ def register_extensions(app):
     db.init_app(app)
     moment.init_app(app)
     debugToolbarExtension.init_app(app)
+    login_manager.init_app(app)
+    csrf.init_app(app)
 
 
 def register_shell_context(app):
