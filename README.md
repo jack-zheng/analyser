@@ -28,10 +28,14 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 
 ## Task List
 
-1. add function on this page
-1. edit function on this page
-1. remove function on this page
+**Enhance Member List Page**
+1. add new member area above member list
+1. edit button beside member record
+1. delet button beside member record
 1. able to copy to clipboard, format is 'username \<email addr\>'
+1. pagation of members, previous - next button to navigate
+1. test about csrf of wtf extension
+1. login require when cud to user
 
 ### DB Migration
 
