@@ -53,7 +53,7 @@ def register_extensions(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db)
+        return dict(db=db, User=User)
 
 
 def register_errors(app):

@@ -1,0 +1,11 @@
+{% extends 'father.html' %}
+{% from '_macro.html' import show_items %}
+
+{% block content %}
+    <p>
+        {{ body }}
+    </p>
+
+    <hr>
+    {{ show_items(items) }}
+{% endblock content %}
