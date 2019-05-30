@@ -32,10 +32,12 @@ tmp.render(title='hi title', body='content-content')
 
 tmp = env.get_template('son.html')
 tmp.render(title='t1', body='boody', items=[1, 2, 3, 4, 45, 5, 6, 7, 3])
-''''<html>\n    <head>\n    <title>t1</title>\n</head>\n    <body>\n        \n    <p>\n
+''''<html>\n    <head>\n    <title>t1</title>\n</head>\n    <body>\n
+            \n    <p>\n
     boody\n    </p>\n\n    <hr>\n    \n    <ul>\n    \n       
          <li>1</li>\n    \n        <li>2</li>\n    \n       
               <li>3</li>\n    \n        <li>4</li>\n    \n      
                     <li>45</li>\n    \n
-<li>5</li>\n    \n        <li>6</li>\n    \n        <li>7</li>\n    \n        <li>3</li>\n    \n
+<li>5</li>\n    \n        <li>6</li>\n    \n        <li>7</li>\n    \n 
+           <li>3</li>\n    \n
    </ul>\n\n\n    </body>\n</html>'''
