@@ -1,13 +1,5 @@
-{% extends "base.html" %} {% block content %}
-
-
-<div class="container">
-  New member insert part
-</div>
-<hr>
-
-<div class="container member_list">
-  <!--table class="table">
+<div class="container member_table">
+  <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">User Id</th>
@@ -34,7 +26,7 @@
       class="btn btn-primary reloadbtn"
       page_num="{{ paginate.prev_num }}"
     >
-      Prev - {{ paginate.prev_num }}
+      Prev
     </button>
     {% endif %} {% if paginate.has_next %}
     <button
@@ -46,12 +38,5 @@
       Next
     </button>
     {% endif %}
-  </div-->
-  {% include "member/member_table.html" %}
+  </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-{{super()}}
-<script type=text/javascript src="{{ url_for('static', filename='js/member.js') }}"></script>
-{% endblock %}

@@ -41,7 +41,8 @@
           url: "ajax_get",
           cache: false
         }).done(function(html) {
-          $("#ajax_get").append(html);
+            console.log(html);
+          $("#ajax_get").html(html);
         })
       );
     });
