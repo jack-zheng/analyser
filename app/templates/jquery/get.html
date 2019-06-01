@@ -33,15 +33,51 @@
     <hr />
     <button id="ajax_btn" type="button">Ajax Get !</button>
     <div id="ajax_get"></div>
+
+    <hr>
+    <p>Print Table Row</p>
+    <table border="1">
+        <tr>
+          <th>Month</th>
+          <th>Savings</th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <td>January</td>
+          <td>$100</td>
+          <td>
+            <button class="tablebtn" type="button">B1 click and show in console</button>
+          </td>
+        </tr>
+        <tr>
+            <td>Jack</td>
+            <td>$101</td>
+            <td>
+                <button class="tablebtn" type="button">B2 click and show in console</button>
+              </td>
+          </tr>
+          <tr>
+            <td>Jesica</td>
+            <td>$102</td>
+            <td>
+                <button class="tablebtn" type="button">B3 click and show in console</button>
+              </td>
+          </tr>
+      </table>
   </body>
   <script>
+    $(".tablebtn").click(function() {
+        var pr = $(this).closest("tr");
+        // console.log(pr.text())
+        pr.remove()
+    });
+
     $("#ajax_btn").click(function() {
       $(
         $.ajax({
           url: "ajax_get",
           cache: false
         }).done(function(html) {
-            console.log(html);
           $("#ajax_get").html(html);
         })
       );
