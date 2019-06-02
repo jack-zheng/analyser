@@ -38,3 +38,4 @@ class JQueryForm(FlaskForm):
         'Password', validators=[DataRequired(), Length(1, 128)])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log in')
+

@@ -4,7 +4,7 @@ from app.extensions import db
 import os
 
 
-member_count_per_page = int(os.getenv('member_count_per_page', '8'))
+member_count_per_page = int(os.getenv('member_count_per_page', '10'))
 member_bp = Blueprint('member', __name__)
 
 
@@ -55,3 +55,20 @@ def update():
         return response
     else:
         return "Not Support", 405
+
+
+@member_bp.route('/add/<inumber>', methods=['GET'])
+def add(inumber):
+    tmp = User.query.filter_by(id=inumber)
+    if tmp.all():
+        return "Duplicated", 400
+    if not inumber:
+        return "Invalid Inumber", 400
+    tmp = User()
+    tmp.id = inumber
+    # fetch name and email from jira, finish later.
+    tmp.username = 'fake'
+    tmp.email = 'fake@sap.com'
+    db.session.add(tmp)
+    db.session.commit()
+    return "Success", 200

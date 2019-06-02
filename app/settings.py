@@ -13,7 +13,6 @@ else:
 
 class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
-    member_count_per_page = os.getenv('member_count_per_page', '8')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CKEDITOR_ENABLE_CSRF = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False

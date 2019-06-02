@@ -99,3 +99,26 @@ $('.member_list').on('click', '.glyphicon-save', function () {
         })
     );
 });
+
+// regist add new member event to button
+$('div.newmember').on('click', '#newmember', function () {
+    var inumber = $('input.newmember').val();
+    var msg = '<div class="alert alert-status" role="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button> msg </div>'
+    if (inumber === "") {
+        var tmp = msg.replace('msg', 'Empty Id')
+        $("div.newmember").append(tmp.replace('status', 'danger'));
+        return;
+    }
+    $(
+        $.ajax({
+            url: "add/" + inumber,
+            cache: false
+        }).done(function (data) {
+            var tmp = msg.replace('msg', data)
+            $("div.newmember").append(tmp.replace('status', 'success'));
+        }).fail(function(data) {
+            var tmp = msg.replace('msg', data.responseText)
+            $("div.newmember").append(tmp.replace('status', 'danger'));
+          })
+    );
+});
