@@ -1,0 +1,62 @@
+<div class="container member_table col-md-8 col-md-offset-2">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">User Id</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in paginate.items %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <span
+            class="glyphicon glyphicon-edit"
+            aria-hidden="true"
+            title="Edit"
+            uid="{{ user.id }}"
+          ></span>
+          <span
+            class="glyphicon glyphicon-remove"
+            aria-hidden="true"
+            title="Remove"
+            uid="{{ user.id }}"
+          ></span>
+          <span
+            class="glyphicon glyphicon-copy"
+            aria-hidden="true"
+            title="Cpoy Email"
+          ></span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="container">
+      {% set id_disable = "" if paginate.has_prev else "disabled" %}
+      <button
+        id="Prev"
+        type="button"
+        class="btn btn-primary reloadbtn {{ id_disable }}  col-md-offset-1"
+        page_num="{{ paginate.prev_num }}"
+      >
+        Prev
+      </button>
+
+      {% set id_disable = "" if paginate.has_next else "disabled" %}
+      <button
+        id="Next"
+        type="button"
+        class="btn btn-primary reloadbtn {{ id_disable }} col-md-offset-3"
+        page_num="{{ paginate.next_num }}"
+      >
+        Next
+      </button>
+  </div>
+</div>

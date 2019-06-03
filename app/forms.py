@@ -29,3 +29,13 @@ class LoginForm(FlaskForm):
         'Password', validators=[DataRequired(), Length(1, 128)])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log in')
+
+
+class JQueryForm(FlaskForm):
+    username = StringField(
+        'Username', validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField(
+        'Password', validators=[DataRequired(), Length(1, 128)])
+    remember = BooleanField('Remember me')
+    submit = SubmitField('Log in')
+

@@ -13,7 +13,6 @@ auth_bp = Blueprint('auth', __name__)
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('history.hello'))
-    print('123')
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data

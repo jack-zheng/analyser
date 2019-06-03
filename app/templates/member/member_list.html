@@ -1,26 +1,22 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
-<div class="container">
-    <p>Members List:</p>
 
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">User Id</th>
-            <th scope="col">Email</th>
-            <th scope="col">Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for user in users %}
-          <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+<div class="container newmember col-md-offset-7">
+    <form class="navbar-form navbar-default" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control newmember" placeholder="New member I number">
+        </div>
+        <button id="newmember" type="button" class="btn btn-default">Add</button>
+      </form>
 </div>
+<hr>
+
+<div class="container member_list">
+  {% include "member/member_table.html" %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script type=text/javascript src="{{ url_for('static', filename='js/member.js') }}"></script>
 {% endblock %}

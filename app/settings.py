@@ -21,6 +21,7 @@ class BaseConfig(object):
 
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'dev.db')
+    WTF_CSRF_CHECK_DEFAULT = False
 
 
 class TestingConfig(BaseConfig):

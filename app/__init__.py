@@ -10,6 +10,7 @@ from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
 from app.blueprints.playground import playground_bp
 from app.blueprints.auth import auth_bp
+from app.blueprints.jquery import jquery_bp
 
 from app.extensions import bootstrap, migrate, db, moment,\
      debugToolbarExtension, login_manager, csrf
@@ -38,6 +39,7 @@ def register_blueprints(app):
     app.register_blueprint(member_bp, url_prefix='/member')
     app.register_blueprint(playground_bp, url_prefix='/playground')
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(jquery_bp, url_prefix='/jquery')
 
 
 def register_extensions(app):
@@ -53,7 +55,7 @@ def register_extensions(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db)
+        return dict(db=db, User=User)
 
 
 def register_errors(app):
