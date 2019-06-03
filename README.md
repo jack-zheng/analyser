@@ -30,6 +30,7 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 
 1. update history perday
 1. command to use pip update requirements everytime
+1. swagger
 
 ### DB Migration
 
