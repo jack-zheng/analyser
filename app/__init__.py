@@ -4,7 +4,7 @@ from app.settings import config
 import click
 import os
 from dotenv import load_dotenv
-from app.models import TestCase, User, CaseBackup
+from app.models import TestCase, User, CaseBackup, Admin
 
 from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
@@ -55,7 +55,7 @@ def register_extensions(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db, User=User)
+        return dict(db=db, User=User, Admin=Admin)
 
 
 def register_errors(app):

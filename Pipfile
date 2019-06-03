@@ -25,3 +25,4 @@ flask-moment = '*'
 flask-wtf = '*'
 flask-debugtoolbar = "*"
 flask-login = "*"
+requests = "*"
