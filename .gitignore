@@ -2,6 +2,7 @@
 PLT-User/
 au-usermanagement/
 .DS_Store
+Pipfile.lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
