@@ -18,14 +18,13 @@ def login():
         username = form.username.data
         password = form.password.data
         remember = form.remember.data
-        admin = Admin.query.first()
+        admin = Admin.query.filter_by(username=username).first()
         if admin:
-            if username == admin.username and \
-                    admin.validate_password(password):
+            if admin.validate_password(password):
                 login_user(admin, remember)
                 flash('Welcome back.', 'info')
                 return redirect_back()
-            flash('Invalid username or password.', 'warning')
+            flash('Incorrect password.', 'warning')
         else:
             flash('No account.', 'warning')
     return render_template('auth/login.html', form=form)
