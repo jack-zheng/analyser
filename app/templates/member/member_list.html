@@ -1,16 +1,14 @@
 {% extends "base.html" %} {% block content %}
 
-{% if current_user.is_authenticated %}
-<div class="container newmember">
-    <form class="navbar-form navbar-default text-right">
+
+<div class="container newmember col-md-offset-7">
+    <form class="navbar-form navbar-default" role="search">
         <div class="form-group">
           <input type="text" class="form-control newmember" placeholder="New member I number">
         </div>
         <button id="newmember" type="button" class="btn btn-default">Add</button>
       </form>
 </div>
-{% endif %}
-
 <hr>
 
 <div class="container member_list">

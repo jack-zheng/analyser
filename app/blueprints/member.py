@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template, request, jsonify
 from app.models import User
 from app.extensions import db
-import requests
 import os
 
-jira_url = str(os.getenv('search_url')) + 'username=id'
+
 member_count_per_page = int(os.getenv('member_count_per_page', '10'))
 member_bp = Blueprint('member', __name__)
 
@@ -60,7 +59,6 @@ def update():
 
 @member_bp.route('/add/<inumber>', methods=['GET'])
 def add(inumber):
-    inumber = inumber.upper()
     tmp = User.query.filter_by(id=inumber)
     if tmp.all():
         return "Duplicated", 400
@@ -69,15 +67,8 @@ def add(inumber):
     tmp = User()
     tmp.id = inumber
     # fetch name and email from jira, finish later.
-    url = jira_url.replace('id', inumber)
-    resp = requests.get(
-        url, auth=(os.getenv('domainid'), os.getenv('domainpwd')))
-    if resp.json():
-        ret = resp.json()[0]
-        tmp.username = ret['displayName']
-        tmp.email = ret['emailAddress']
-        db.session.add(tmp)
-        db.session.commit()
-        return "Success", 200
-    else:
-        return "No user with given i number found in Jira", 400
+    tmp.username = 'fake'
+    tmp.email = 'fake@sap.com'
+    db.session.add(tmp)
+    db.session.commit()
+    return "Success", 200
