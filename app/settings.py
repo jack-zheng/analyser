@@ -18,6 +18,18 @@ class BaseConfig(object):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     DEBUG_TB_ENABLED = False
 
+    JOBS = [
+        {
+            'id': 'update_history',
+            'func': 'app:blueprints.history.fake_timer',
+            'trigger': 'cron',
+            'second': '*/5'
+        }
+    ]
+
+    # every 5 seconds: 'second': '*/5'
+    # work day, 5:30 am run job: day_of_week='mon-fri', hour=5, minute=30
+
 
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'dev.db')

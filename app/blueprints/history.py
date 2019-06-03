@@ -39,6 +39,10 @@ def apacheclient():
     return jsonify(request.json)
 
 
+def fake_timer():
+    print('history method called: %s' % datetime.utcnow())
+
+
 def update_history():
     start = datetime.now()
     # Steps to update git history to db

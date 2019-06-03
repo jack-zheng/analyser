@@ -13,7 +13,7 @@ from app.blueprints.auth import auth_bp
 from app.blueprints.jquery import jquery_bp
 
 from app.extensions import bootstrap, migrate, db, moment,\
-     debugToolbarExtension, login_manager, csrf
+     debugToolbarExtension, login_manager, csrf, scheduler
 
 
 load_dotenv()
@@ -31,6 +31,8 @@ def create_app(config_name=None):
     register_shell_context(app)
     register_commands(app)
     register_errors(app)
+
+    scheduler.start()
     return app
 
 
@@ -50,6 +52,7 @@ def register_extensions(app):
     debugToolbarExtension.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
+    scheduler.init_app(app)
 
 
 def register_shell_context(app):

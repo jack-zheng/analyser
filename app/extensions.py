@@ -5,6 +5,7 @@ from flask_moment import Moment
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
+from flask_apscheduler import APScheduler
 
 
 db = SQLAlchemy()
@@ -14,6 +15,7 @@ moment = Moment()
 debugToolbarExtension = DebugToolbarExtension()
 login_manager = LoginManager()
 csrf = CSRFProtect()
+scheduler = APScheduler()
 
 
 @login_manager.user_loader
