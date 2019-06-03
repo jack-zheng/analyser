@@ -4,7 +4,7 @@ from app.settings import config
 import click
 import os
 from dotenv import load_dotenv
-from app.models import TestCase, User, CaseBackup, Admin
+from app.models import TestCase, User, CaseBackup, Admin, JobHistory
 
 from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
@@ -32,7 +32,7 @@ def create_app(config_name=None):
     register_commands(app)
     register_errors(app)
 
-    scheduler.start()
+    #scheduler.start()
     return app
 
 
@@ -58,7 +58,7 @@ def register_extensions(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db, User=User, Admin=Admin)
+        return dict(db=db, User=User, Admin=Admin, JobHistory=JobHistory)
 
 
 def register_errors(app):
@@ -121,6 +121,17 @@ def register_commands(app):
                 email=fake.email()
             )
             db.session.add(message)
+
+        db.session.commit()
+        click.echo('Created %d fake record in each table.' % count)
+
+        click.echo('Create fake data in job history table...')
+        for i in range(count):
+            record = JobHistory(
+                id=i,
+                timestamp=fake.date_time(tzinfo=None, end_datetime=None)
+            )
+            db.session.add(record)
 
         db.session.commit()
         click.echo('Created %d fake record in each table.' % count)

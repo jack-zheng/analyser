@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from app.forms import UpdateForm
 from app.extensions import db
-from app.models import TestCase
+from app.models import TestCase, JobHistory
 from datetime import datetime
 from flask import request, abort, jsonify
 from git import Repo
@@ -17,6 +17,8 @@ history_bp = Blueprint('history', __name__)
 
 @history_bp.route('/', methods=['GET', 'POST'])
 def hello():
+    last_run = JobHistory.query.order_by(
+        JobHistory.timestamp.desc()).first().timestamp
     form = UpdateForm()
     if form.validate_on_submit():
         gap = update_history()
@@ -24,7 +26,7 @@ def hello():
             'history/index.html',
             form=form,
             cost=gap)
-    return render_template('history/index.html', form=form)
+    return render_template('history/index.html', form=form, time=last_run)
 
 
 @history_bp.route('/apacheclient', methods=['POST'])

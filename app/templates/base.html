@@ -92,7 +92,8 @@
         <script src="{{bootstrap_find_resource('jquery.js', cdn='jquery')}}"></script>
         <script src="{{bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap')}}"></script>
         {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
-        {{ moment.locale('zh-cn') }}
+        
+        {#{ moment.locale('zh-cn') }#}
         {% endblock %}
         {%- endblock body %}
         </body>
