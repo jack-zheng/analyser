@@ -6,3 +6,5 @@
     * 导致以上问题的原因是对flask-bootstrap的机制不熟悉，在bootstrap的base.html中并没有预留出来footer block，如果要使用的话就需要每个子模版中分别添加或者用super()语法，不是很方便，最后我决定参照书上的做法结合bootstrap的例子，自建了一个base.html
 1. 在使用了Flask-WTF扩展之后，如果你要用Ajax来发送post请求，需要在Ajax中添加CSRF token或者创建form页面元素并将之序列化传到Ajax中,当然form中需要到CSRF token.
 1. 有什么比较优雅的在子模块中取配置的方式，类似取默认分页数什么的
+    * 最后直接用 os.getenv 啦
+1. 网站上线后，自定义的js没有加载，真是扯淡
