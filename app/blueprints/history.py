@@ -10,6 +10,7 @@ from os.path import join
 import os
 import logging
 import re
+import shutil
 
 
 history_bp = Blueprint('history', __name__)
@@ -31,16 +32,11 @@ def hello():
         time=last_run.timestamp if last_run else [])
 
 
-@history_bp.route('/apacheclient', methods=['POST'])
+@history_bp.route('/apacheclient', methods=['GET'])
 def apacheclient():
-    """
-    Test API for reading Apache HttpClient source code
-    :return: json context of request body
-    """
-    if not request.json:
-        abort(400, "Not a json format")
-    logging.warning(request.json)
-    return jsonify(request.json)
+    shutil.rmtree('./au-usermanagement')
+    logging.warning('Git Repo Deleted!')
+    return "Success", 200
 
 
 def update_git_history_job():
@@ -54,15 +50,15 @@ def update_history():
     # 1. clone/pull repo
     webhookrepo = ''
     repopath = './au-usermanagement'
-    if not os.path.isdir(repopath):
-        webhookrepo = Repo.clone_from(
-            url=os.getenv('clone_url'), to_path=repopath)
-        logging.warning('Finish Clone!')
-
-    else:
-        webhookrepo = Repo(repopath)
-        webhookrepo.remotes.origin.pull()
-        logging.warning('Finish Pull')
+    logging.warning('Is repo exit: %s' % os.path.isdir(repopath))
+    if os.path.isdir(repopath):
+        # after update, remove git repo
+        shutil.rmtree(repopath)
+        logging.warning('Git Repo Deleted!')
+    logging.warning('Is repo exit: %s' % os.path.isdir(repopath))
+    webhookrepo = Repo.clone_from(
+        url=os.getenv('clone_url'), to_path=repopath)
+    logging.warning('Finish Clone!')
 
     # 2. clean db data
     #       * delete all records from test_case table

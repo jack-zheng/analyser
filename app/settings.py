@@ -23,7 +23,7 @@ class BaseConfig(object):
             'id': 'update_history',
             'func': 'app:blueprints.history.update_git_history_job',
             'trigger': 'cron',
-            'minute': '*/2'
+            'day': '*/2'
         }
     ]
 

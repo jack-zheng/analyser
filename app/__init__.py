@@ -3,6 +3,7 @@ from app.settings import config
 
 import click
 import os
+import shutil
 from dotenv import load_dotenv
 from app.models import TestCase, User, CaseBackup, Admin, JobHistory
 
@@ -34,7 +35,7 @@ def create_app(config_name=None):
 
     # setting for job feature
     db.app = app
-    scheduler.start()
+    #scheduler.start()
     return app
 
 
@@ -169,3 +170,10 @@ def register_commands(app):
         db.session.add(tmp)
         db.session.commit()
         click.echo('Finish Creation...')
+
+    @app.cli.command()
+    @click.option(
+        '--path')
+    def recursive_remove(path):
+        shutil.rmtree(path)
+        click.echo('Finish Invoke Remove Tree...')

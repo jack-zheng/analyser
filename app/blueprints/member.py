@@ -4,7 +4,7 @@ from app.extensions import db
 import requests
 import os
 
-jira_url = str(os.getenv('search_url')) + 'username=id'
+
 member_count_per_page = int(os.getenv('member_count_per_page', '10'))
 member_bp = Blueprint('member', __name__)
 
@@ -69,6 +69,7 @@ def add(inumber):
     tmp = User()
     tmp.id = inumber
     # fetch name and email from jira, finish later.
+    jira_url = str(os.getenv('search_url')) + 'username=id'
     url = jira_url.replace('id', inumber)
     resp = requests.get(
         url, auth=(os.getenv('domainid'), os.getenv('domainpwd')))
