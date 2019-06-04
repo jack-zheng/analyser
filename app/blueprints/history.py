@@ -18,7 +18,7 @@ history_bp = Blueprint('history', __name__)
 @history_bp.route('/', methods=['GET', 'POST'])
 def hello():
     last_run = JobHistory.query.order_by(
-        JobHistory.timestamp.desc()).first().timestamp
+        JobHistory.timestamp.desc()).first()
     form = UpdateForm()
     if form.validate_on_submit():
         gap = update_history()
@@ -26,7 +26,9 @@ def hello():
             'history/index.html',
             form=form,
             cost=gap)
-    return render_template('history/index.html', form=form, time=last_run)
+    return render_template(
+        'history/index.html', form=form,
+        time=last_run.timestamp if last_run else [])
 
 
 @history_bp.route('/apacheclient', methods=['POST'])
@@ -41,8 +43,9 @@ def apacheclient():
     return jsonify(request.json)
 
 
-def fake_timer():
-    print('history method called: %s' % datetime.utcnow())
+def update_git_history_job():
+    with db.app.app_context():
+        update_history()
 
 
 def update_history():
@@ -66,6 +69,7 @@ def update_history():
     #       * update slqite_sequence table to reset test_case table
     #       auto increment count
     count = TestCase.query.delete()
+    db.session.commit()
     logging.warning('Finish Clean DB! %s records been deleted.' % count)
 
     # 3. update test case info
@@ -118,6 +122,11 @@ def update_history():
     FROM case_backup
     WHERE case_backup.file_name = test_case.file_name)'''
     db.session.execute(sql)
+    db.session.commit()
+    logging.warning('History Update Finished!')
+
+    record = JobHistory(timestamp=datetime.utcnow())
+    db.session.add(record)
     db.session.commit()
     return (datetime.now() - start).seconds
 

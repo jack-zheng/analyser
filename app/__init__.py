@@ -32,7 +32,9 @@ def create_app(config_name=None):
     register_commands(app)
     register_errors(app)
 
-    #scheduler.start()
+    # setting for job feature
+    db.app = app
+    scheduler.start()
     return app
 
 
@@ -149,3 +151,21 @@ def register_commands(app):
             for sql in file.readlines():
                 db.engine.execute(sql)
         click.echo('Finish Data Recover...')
+
+    @app.cli.command()
+    def create_admin():
+        click.echo('Create admin account in Admin Table')
+        Admin.query.delete()
+        db.session.commit()
+
+        tmp = Admin()
+        tmp.id = 1
+        tmp.username = 'admin'
+        tmp.set_password('pwd')
+        tmp.blog_title = 'tmp title'
+        tmp.blog_sub_title = 'tmp sub title'
+        tmp.name = 'tmp name'
+        tmp.about = 'tmp about'
+        db.session.add(tmp)
+        db.session.commit()
+        click.echo('Finish Creation...')

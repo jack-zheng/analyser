@@ -21,13 +21,14 @@ class BaseConfig(object):
     JOBS = [
         {
             'id': 'update_history',
-            'func': 'app:blueprints.history.fake_timer',
+            'func': 'app:blueprints.history.update_git_history_job',
             'trigger': 'cron',
-            'second': '*/5'
+            'minute': '*/2'
         }
     ]
 
     # every 5 seconds: 'second': '*/5'
+    # every 2 mintues: 'minute': '*/2'
     # work day, 5:30 am run job: day_of_week='mon-fri', hour=5, minute=30
 
 
