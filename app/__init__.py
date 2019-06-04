@@ -35,7 +35,7 @@ def create_app(config_name=None):
 
     # setting for job feature
     db.app = app
-    #scheduler.start()
+    scheduler.start()
     return app
 
 
