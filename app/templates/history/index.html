@@ -1,23 +1,38 @@
-{% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
-
-{% block content %}
+{% extends "base.html" %} {% import 'bootstrap/wtf.html' as wtf %} {% block
+content %}
 
 <div class="container">
+  <label for="basic-url">How to update git commit history:</label>
+  <div class="row">
+    <div class="col-md-9">
+      <pre>
+        <code>
+                CURL -H "Content-Type:application/json" -X POST http://10.129.126.245:4000/webhook
+        </code>
+        </pre>
+    </div>
 
-    <p>How to update git commit history:</p>
-
-    <pre>
-    <code>
-            CURL -H "Content-Type:application/json" -X POST http://10.129.126.245:4000/webhook
-    </code>
-    </pre>
-    {{ wtf.quick_form(form) }}
+    <div class="col-md-1">
+      {{ wtf.quick_form(form) }}
+    </div>
 
     {% if cost %}
-    <br>
-    <div class="alert alert-success" role="alert">Git history update in: {{ cost }} sec!</div>
+    <br />
+    <div class="alert alert-success" role="alert">
+      Git history update in: {{ cost }} sec!
+    </div>
     {% endif %}
-</div>
+  </div>
 
-{% endblock content %}
+  {% if time %}
+  <div class="container">
+    <h3 class="text-center">
+      Last update time: {{ moment(time).format("lll") }}
+      <span
+        class="label label-success"
+        >{{ moment(time).fromNow(refresh=True) }}</span
+      >
+    </h3>
+  </div>
+  {% endif %} {% endblock content %}
+</div>

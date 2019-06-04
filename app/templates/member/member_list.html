@@ -1,19 +1,22 @@
 {% extends "base.html" %} {% block content %}
 
 {% if current_user.is_authenticated %}
-<div class="container newmember">
-    <form class="navbar-form navbar-default text-right">
-        <div class="form-group">
-          <input type="text" class="form-control newmember" placeholder="New member I number">
+<div class="row">
+        <div class="container newmember">
+                <div class="input-group  col-md-3 col-md-offset-7">
+                    <input type="text" class="form-control newmember" placeholder="New member I number">
+                
+                <span class="input-group-btn">
+                        <button id="newmember" type="button" class="btn btn-default">Add</button>
+                </span>
+            </div>
         </div>
-        <button id="newmember" type="button" class="btn btn-default">Add</button>
-      </form>
 </div>
-<hr>
+
 {% endif %}
 
 <div class="container member_list">
-  {% include "member/member_table.html" %}
+    {% include "member/member_table.html" %}
 </div>
 {% endblock %}
 

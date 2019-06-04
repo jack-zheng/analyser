@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from app.forms import UpdateForm
 from app.extensions import db
-from app.models import TestCase
+from app.models import TestCase, JobHistory
 from datetime import datetime
 from flask import request, abort, jsonify
 from git import Repo
@@ -10,6 +10,7 @@ from os.path import join
 import os
 import logging
 import re
+import shutil
 
 
 history_bp = Blueprint('history', __name__)
@@ -17,6 +18,8 @@ history_bp = Blueprint('history', __name__)
 
 @history_bp.route('/', methods=['GET', 'POST'])
 def hello():
+    last_run = JobHistory.query.order_by(
+        JobHistory.timestamp.desc()).first()
     form = UpdateForm()
     if form.validate_on_submit():
         gap = update_history()
@@ -24,19 +27,21 @@ def hello():
             'history/index.html',
             form=form,
             cost=gap)
-    return render_template('history/index.html', form=form)
+    return render_template(
+        'history/index.html', form=form,
+        time=last_run.timestamp if last_run else [])
 
 
-@history_bp.route('/apacheclient', methods=['POST'])
+@history_bp.route('/apacheclient', methods=['GET'])
 def apacheclient():
-    """
-    Test API for reading Apache HttpClient source code
-    :return: json context of request body
-    """
-    if not request.json:
-        abort(400, "Not a json format")
-    logging.warning(request.json)
-    return jsonify(request.json)
+    shutil.rmtree('./au-usermanagement')
+    logging.warning('Git Repo Deleted!')
+    return "Success", 200
+
+
+def update_git_history_job():
+    with db.app.app_context():
+        update_history()
 
 
 def update_history():
@@ -45,21 +50,22 @@ def update_history():
     # 1. clone/pull repo
     webhookrepo = ''
     repopath = './au-usermanagement'
-    if not os.path.isdir(repopath):
-        webhookrepo = Repo.clone_from(
-            url=os.getenv('clone_url'), to_path=repopath)
-        logging.warning('Finish Clone!')
-
-    else:
-        webhookrepo = Repo(repopath)
-        webhookrepo.remotes.origin.pull()
-        logging.warning('Finish Pull')
+    logging.warning('Is repo exit: %s' % os.path.isdir(repopath))
+    if os.path.isdir(repopath):
+        # after update, remove git repo
+        shutil.rmtree(repopath)
+        logging.warning('Git Repo Deleted!')
+    logging.warning('Is repo exit: %s' % os.path.isdir(repopath))
+    webhookrepo = Repo.clone_from(
+        url=os.getenv('clone_url'), to_path=repopath)
+    logging.warning('Finish Clone!')
 
     # 2. clean db data
     #       * delete all records from test_case table
     #       * update slqite_sequence table to reset test_case table
     #       auto increment count
     count = TestCase.query.delete()
+    db.session.commit()
     logging.warning('Finish Clean DB! %s records been deleted.' % count)
 
     # 3. update test case info
@@ -112,6 +118,11 @@ def update_history():
     FROM case_backup
     WHERE case_backup.file_name = test_case.file_name)'''
     db.session.execute(sql)
+    db.session.commit()
+    logging.warning('History Update Finished!')
+
+    record = JobHistory(timestamp=datetime.utcnow())
+    db.session.add(record)
     db.session.commit()
     return (datetime.now() - start).seconds
 

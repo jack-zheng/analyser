@@ -61,3 +61,11 @@ class CaseBackup(db.Model):
 
     def __repr__(self):
         return '<CaseBackup {}, {}>'.format(self.id, self.email)
+
+
+class JobHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return '<JobHistory {}, {}>'.format(self.id, self.timestamp)

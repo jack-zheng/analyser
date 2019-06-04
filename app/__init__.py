@@ -3,8 +3,9 @@ from app.settings import config
 
 import click
 import os
+import shutil
 from dotenv import load_dotenv
-from app.models import TestCase, User, CaseBackup, Admin
+from app.models import TestCase, User, CaseBackup, Admin, JobHistory
 
 from app.blueprints.member import member_bp
 from app.blueprints.history import history_bp
@@ -13,7 +14,7 @@ from app.blueprints.auth import auth_bp
 from app.blueprints.jquery import jquery_bp
 
 from app.extensions import bootstrap, migrate, db, moment,\
-     debugToolbarExtension, login_manager, csrf
+     debugToolbarExtension, login_manager, csrf, scheduler
 
 
 load_dotenv()
@@ -31,6 +32,10 @@ def create_app(config_name=None):
     register_shell_context(app)
     register_commands(app)
     register_errors(app)
+
+    # setting for job feature
+    db.app = app
+    scheduler.start()
     return app
 
 
@@ -50,12 +55,13 @@ def register_extensions(app):
     debugToolbarExtension.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
+    scheduler.init_app(app)
 
 
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db, User=User, Admin=Admin)
+        return dict(db=db, User=User, Admin=Admin, JobHistory=JobHistory)
 
 
 def register_errors(app):
@@ -122,6 +128,17 @@ def register_commands(app):
         db.session.commit()
         click.echo('Created %d fake record in each table.' % count)
 
+        click.echo('Create fake data in job history table...')
+        for i in range(count):
+            record = JobHistory(
+                id=i,
+                timestamp=fake.date_time(tzinfo=None, end_datetime=None)
+            )
+            db.session.add(record)
+
+        db.session.commit()
+        click.echo('Created %d fake record in each table.' % count)
+
     @app.cli.command()
     def recover_svn():
         """Extract data from sql file and insert to case_backup table."""
@@ -135,3 +152,28 @@ def register_commands(app):
             for sql in file.readlines():
                 db.engine.execute(sql)
         click.echo('Finish Data Recover...')
+
+    @app.cli.command()
+    def create_admin():
+        click.echo('Create admin account in Admin Table')
+        Admin.query.delete()
+        db.session.commit()
+
+        tmp = Admin()
+        tmp.id = 1
+        tmp.username = 'admin'
+        tmp.set_password('pwd')
+        tmp.blog_title = 'tmp title'
+        tmp.blog_sub_title = 'tmp sub title'
+        tmp.name = 'tmp name'
+        tmp.about = 'tmp about'
+        db.session.add(tmp)
+        db.session.commit()
+        click.echo('Finish Creation...')
+
+    @app.cli.command()
+    @click.option(
+        '--path')
+    def recursive_remove(path):
+        shutil.rmtree(path)
+        click.echo('Finish Invoke Remove Tree...')
