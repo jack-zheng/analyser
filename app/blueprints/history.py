@@ -26,7 +26,7 @@ def hello():
         return render_template(
             'history/index.html',
             form=form,
-            cost=gap)
+            cost=gap, time=last_run.timestamp if last_run else [])
     return render_template(
         'history/index.html', form=form,
         time=last_run.timestamp if last_run else [])

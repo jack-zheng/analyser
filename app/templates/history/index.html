@@ -15,14 +15,14 @@ content %}
     <div class="col-md-1">
       {{ wtf.quick_form(form) }}
     </div>
-
-    {% if cost %}
-    <br />
-    <div class="alert alert-success" role="alert">
-      Git history update in: {{ cost }} sec!
-    </div>
-    {% endif %}
   </div>
+
+  {% if cost %}
+  <br />
+  <div class="alert alert-success" role="alert">
+    Git history update in: {{ cost }} sec!
+  </div>
+  {% endif %}
 
   {% if time %}
   <div class="container">
