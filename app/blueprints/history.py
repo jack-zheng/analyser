@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for, flash
 from app.forms import UpdateForm
 from app.extensions import db
 from app.models import TestCase, JobHistory
@@ -22,11 +22,8 @@ def hello():
         JobHistory.timestamp.desc()).first()
     form = UpdateForm()
     if form.validate_on_submit():
-        gap = update_history()
-        return render_template(
-            'history/index.html',
-            form=form,
-            cost=gap, time=last_run.timestamp if last_run else [])
+        flash('Update finished in %s sec.' % update_history(), 'success')
+        return redirect(url_for('history.hello'))
     return render_template(
         'history/index.html', form=form,
         time=last_run.timestamp if last_run else [])
@@ -50,12 +47,10 @@ def update_history():
     # 1. clone/pull repo
     webhookrepo = ''
     repopath = './au-usermanagement'
-    logging.warning('Is repo exit: %s' % os.path.isdir(repopath))
     if os.path.isdir(repopath):
         # after update, remove git repo
         shutil.rmtree(repopath)
         logging.warning('Git Repo Deleted!')
-    logging.warning('Is repo exit: %s' % os.path.isdir(repopath))
     webhookrepo = Repo.clone_from(
         url=os.getenv('clone_url'), to_path=repopath)
     logging.warning('Finish Clone!')
