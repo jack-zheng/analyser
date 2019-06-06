@@ -8,11 +8,12 @@
 1. 有什么比较优雅的在子模块中取配置的方式，类似取默认分页数什么的
     * 最后直接用 os.getenv 啦
 1. 网站上线后，自定义的js没有加载，真是扯淡, 应该是由于docker 的 nginx config 导致的, 但是按照docker提供者的信息来看，应该都是默认就设置好了才对，擦
-    * 应该是权限问题，http://10.129.126.245:4000/static/facicon.ico 这个不能访问，原权限是 600 但是改了权限到 644 后就可以了。MAC上面倒是没什么问题，真是日狗了。不过mac和linux上docker image 的版本也不一样
+    * 应该是权限问题，[favicon](http://10.129.126.245:4000/static/favicon.ico)这个不能访问，原权限是 600 但是改了权限到 644 后就可以了。MAC上面倒是没什么问题，真是日狗了。不过mac和linux上docker image 的版本也不一样
     * linux: 4.4.0-109-generic; mac: 4.9.125-linuxkit; windows: 4.9.125-linuxkit
     * on windows when build image all file and directory got permission '-rwxr-xr-x'
+    * resolve this issue by manually run command 'chmod 655 -R static templates', add it to Dockerfile as tmp workaround. but this still not make sense, let's test it on other linux machine to see if it's an environment issue.
 
-permission of MAC:   
+permission of MAC:  
 drwxr-xr-x 5 root root   4096 Jun  3 11:42 static  
 drwxr-xr-x 8 root root   4096 Jun  4 11:39 templates
 
@@ -24,7 +25,7 @@ permission of Windows:
 drwxr-xr-x 5 root root   4096 Jun  3 12:44 static  
 drwxr-xr-x 8 root root   4096 Jun  5 14:59 templates
 
-```
+``` bash
 PS C:\Users\Jack\gitStore\analyser> docker version
 Client: Docker Engine - Community
  Version:           18.09.2
