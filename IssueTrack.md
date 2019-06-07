@@ -12,6 +12,7 @@
     * linux: 4.4.0-109-generic; mac: 4.9.125-linuxkit; windows: 4.9.125-linuxkit
     * on windows when build image all file and directory got permission '-rwxr-xr-x'
     * resolve this issue by manually run command 'chmod 655 -R static templates', add it to Dockerfile as tmp workaround. but this still not make sense, let's test it on other linux machine to see if it's an environment issue.
+    * tried against raspberry pi, and it works without setting folder permission.
 
 permission of MAC:  
 drwxr-xr-x 5 root root   4096 Jun  3 11:42 static  
