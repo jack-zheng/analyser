@@ -44,6 +44,16 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Provisioner
+                            </a>
+                            <div class="dropdown-menu pull-left">
+                                <a class="dropdown-item" href="{{ url_for('provisioner.register_provisioner') }}">Register Provisioner</a><br>
+                                <a class="dropdown-item" href="{{ url_for('provisioner.map_company') }}">Map To Company</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 GoTo
                             </a>
                             <div class="dropdown-menu pull-left">

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, PasswordField, \
     BooleanField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Email
 
 
 class PlayGroundForm(FlaskForm):
@@ -38,3 +38,19 @@ class JQueryForm(FlaskForm):
         'Password', validators=[DataRequired(), Length(1, 128)])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log in')
+
+
+class RegisterProvisioner(FlaskForm):
+    inumber = StringField(
+        'I Number', validators=[DataRequired(), Length(1, 20)])
+    email = StringField(
+        'Email', validators=[DataRequired(), Length(1, 128), Email()])
+    submit = SubmitField('Register')
+
+
+class MapCompany(FlaskForm):
+    inumber = StringField(
+        'I Number', validators=[DataRequired(), Length(1, 20)])
+    company = StringField(
+        'Company Id', validators=[DataRequired(), Length(1, 30)])
+    submit = SubmitField('Submit')
