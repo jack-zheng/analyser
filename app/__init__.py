@@ -12,6 +12,7 @@ from app.blueprints.history import history_bp
 from app.blueprints.playground import playground_bp
 from app.blueprints.auth import auth_bp
 from app.blueprints.jquery import jquery_bp
+from app.blueprints.provisioner import provisioner_bp
 
 from app.extensions import bootstrap, migrate, db, moment,\
      debugToolbarExtension, login_manager, csrf, scheduler
@@ -45,6 +46,7 @@ def register_blueprints(app):
     app.register_blueprint(playground_bp, url_prefix='/playground')
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(jquery_bp, url_prefix='/jquery')
+    app.register_blueprint(provisioner_bp, url_prefix='/provisioner')
 
 
 def register_extensions(app):
