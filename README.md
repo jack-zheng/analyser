@@ -1,6 +1,6 @@
 # Analyser
 
-This repo is created for maintanence Qray daily job in a easy way, to save your time and life to do more mainingfful things.
+Automate boring daily tasks, save your life and focuse on meaningful thing.
 
 ## Usage
 
@@ -28,7 +28,9 @@ This repo is created for maintanence Qray daily job in a easy way, to save your 
 
 ## Task List - Schedule Job
 
+1. more beautiful UI
 1. swagger
+1. advise feature
 
 ### DB Migration
 
