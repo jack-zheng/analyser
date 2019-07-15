@@ -10,7 +10,7 @@ from app.forms import RegisterProvisioner, MapCompany
 
 provisioner_bp = Blueprint('provisioner', __name__)
 load_dotenv()
-domianurl = os.getenv('domainurl')
+domainurl = os.getenv('domainurl')
 basic_token = os.getenv('rest_basic_token')
 
 
@@ -18,7 +18,7 @@ def get_access_token():
     # get rest API token
     payload = '{"grant_type":"client_credentials",\
         "scope":"userId=SFV4,resourceType=sfprovisioning"}'
-    url = "%s/api/oauth/rest/v1/token" % domianurl
+    url = "%s/api/oauth/rest/v1/token" % domainurl
     headers = {
         'Content-type': "application/json",
         'Authorization': basic_token}
@@ -48,7 +48,7 @@ def register_provisioner():
                 "provisionerEmail":"%s"}' % (inumber, inumber, email)
 
         prov_url = "%s/provisioningapi/provisioning/dataservice"\
-            "/rest/v1/createprovisioner" % domianurl
+            "/rest/v1/createprovisioner" % domainurl
 
         resp = requests.request(
             "POST", prov_url, data=prov_payload, headers=prov_header)
@@ -58,7 +58,7 @@ def register_provisioner():
         permission_payload = '{"provisionerId":"%s",\
             "provisionerFlag":"16777234"}' % inumber
         permission_url = "%s/provisioningapi/provisioning/dataservice"\
-            "/rest/v1/setprovisionerperm" % domianurl
+            "/rest/v1/setprovisionerperm" % domainurl
         resp = requests.request(
             "POST", permission_url, data=permission_payload,
             headers=prov_header)
@@ -86,7 +86,7 @@ def map_company(inumber):
             'Authorization': get_access_token()
         }
         url = "%s/provisioningapi/provisioning/dataservice/"\
-            "rest/v1/mapprovisionertocompany" % domianurl
+            "rest/v1/mapprovisionertocompany" % domainurl
         payload = '{"provisionerId" : "%s","companyId": "%s"}' % (id, cid)
         resp = requests.request("POST", url, data=payload, headers=headers)
         if resp.status_code == 200:
