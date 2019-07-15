@@ -13,6 +13,8 @@ load_dotenv()
 domainurl = os.getenv('domainurl')
 basic_token = os.getenv('rest_basic_token')
 
+print('Properties: [%s, %s]' % (domainurl, basic_token))
+
 
 def get_access_token():
     # get rest API token
