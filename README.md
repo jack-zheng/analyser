@@ -48,3 +48,7 @@ usage of alembic db management
 1. when OS is windows, mirgate with --message will be failed
 
 **PS:** SQLITE is not support the rename of column, so I have to do this db change manually
+
+First Edit
+edit02
+eidt03
